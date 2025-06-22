@@ -1,4 +1,3 @@
-import joblib
 import matplotlib.pyplot as plt
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split, cross_val_score
@@ -19,25 +18,10 @@ def entrenar_modelo_mlp(X, y, test_size=0.2, random_state=42):
     print("\nReporte de Clasificación (MLP):\n")
     print(classification_report(y_test, y_pred))
 
-    # Matriz de confusión
-    cm = confusion_matrix(y_test, y_pred)
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-    disp.plot(cmap="Purples")
-    plt.title("Matriz de Confusión - MLP Classifier")
-    plt.show()
 
     # Validación cruzada
-    cv_scores = cross_val_score(clf, X, y, cv=7)
-    print(f"Accuracy promedio validación cruzada (7 folds): {cv_scores.mean():.4f}")
+    cv_scores = cross_val_score(clf, X, y, cv=5)
+    print(f"Accuracy promedio validación cruzada (5 folds): {cv_scores.mean():.4f}")
 
-    return clf
+    return clf, X_test, y_test
 
-if __name__ == "__main__":
-    # Cargar y preprocesar datos
-    X, y, le_drug, scaler = preprocesar("ProyectoML/Proyecto/drug200.csv")
-
-    # Entrenar modelo
-    modelo_mlp = entrenar_modelo_mlp(X, y)
-
-    # Guardar modelo
-    joblib.dump(modelo_mlp, "modelo_mlp.pkl")
