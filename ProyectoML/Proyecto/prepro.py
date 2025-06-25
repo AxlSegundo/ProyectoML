@@ -1,8 +1,5 @@
-# modulo_preprocesamiento.py
-
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.model_selection import train_test_split
 
 def cargar_datos(ruta_csv):
     df = pd.read_csv(ruta_csv)
@@ -19,7 +16,7 @@ def codificar_variables(df):
     df['Cholesterol'] = le_chol.fit_transform(df['Cholesterol'])
     df['Drug'] = le_drug.fit_transform(df['Drug'])
 
-    return df, le_drug  # Retornamos también el encoder del target para revertir predicciones
+    return df, le_drug
 
 def escalar_datos(X):
     scaler = StandardScaler()
